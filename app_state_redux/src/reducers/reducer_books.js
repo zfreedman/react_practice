@@ -1,12 +1,12 @@
 export default function() {
-  var titles = [
-    "JavaScript: The Good Parts",
-    "Harry Potter",
-    "The Dark Tower",
-    "Eloquent Ruby"
+  var book_list = [
+    ["JavaScript: The Good Parts", 101],
+    ["Harry Potter", 39],
+    ["The Dark Tower", 85],
+    ["Eloquent Ruby", 1]
   ];
-  return titles.reduce(function(arr, e) {
-    arr.push({title: e});
+  return book_list.reduce(function(arr, e) {
+    arr.push({title: e[0], pages: e[1]});
     return arr;
   }, []);
 }
