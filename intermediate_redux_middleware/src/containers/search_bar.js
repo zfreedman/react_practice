@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { fetch_weather } from "../actions/index";
 
 // note (see note for ../components/app.js too)
 // react class can be named whatever (if default export),
 // but tag must be named with a capital letter to start
-export default class SearchBar extends Component {
+class SearchBar extends Component {
   // setting up initial state
   constructor(props) {
     super(props);
@@ -17,11 +20,18 @@ export default class SearchBar extends Component {
     of this ahead of time so you know what the this context is referring to
     */
     this.onInputChange = this.onInputChange.bind(this);
+    // bind this context
+    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   // called when the form is submitted
   onFormSubmit(event) {
     event.preventDefault();
+
+    // go and fetch weather data
+    this.props.fetch_weather(this.state.term);
+    // clear search input
+    this.setState({ term: "" });
   }
 
   // to be called when the input is changed
@@ -47,3 +57,11 @@ export default class SearchBar extends Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetch_weather }, dispatch);
+}
+
+// passing in null as the first argument informs redux that we're
+// not concerned with any state here
+export default connect(null, mapDispatchToProps)(SearchBar);
