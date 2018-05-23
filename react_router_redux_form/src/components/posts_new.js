@@ -11,22 +11,32 @@ class PostsNew extends Component {
           placeholder={field.label}
           type="text"
           {...field.input} />
+        {field.meta.error}
       </div>
     );
   }
 
+  onSubmit(values) {
+    console.log(values);
+  }
+
   render() {
+    const { handleSubmit } = this.props;
+
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field label="Title" name="title" component={this.renderField} />
         <Field
           label="Categories"
+          // this "name" property connects 1:1 with the keys in validate()'s
+          // error object
           name="Categories"
           component={this.renderField} />
         <Field
           label="Post Content"
           name="content"
           component={this.renderField} />
+          <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     );
   }
