@@ -11,7 +11,7 @@ class PostsNew extends Component {
           placeholder={field.label}
           type="text"
           {...field.input} />
-        {field.meta.error}
+        {field.meta.touched ? field.meta.error : ""}
       </div>
     );
   }
@@ -30,13 +30,13 @@ class PostsNew extends Component {
           label="Categories"
           // this "name" property connects 1:1 with the keys in validate()'s
           // error object
-          name="Categories"
+          name="categories"
           component={this.renderField} />
         <Field
           label="Post Content"
           name="content"
           component={this.renderField} />
-          <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     );
   }
